@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://defxssikge230"]
+
+[ext_resource type="Script" uid="uid://c4t4h1stgplnf" path="res://Scripts/sky.gd" id="1_gc8rc"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ku5nx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya3vs"]
+albedo_color = Color(0.9737062, 0.9693845, 1.540184e-06, 1)
+emission_enabled = true
+emission = Color(1, 1, 0.3764706, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gc8rc"]
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+color = Color(0.88684916, 0.8874804, 0.49845326, 0.7058824)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ku5nx"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.9492555, 0.9411079, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.9764706, 0.44705883, 1)
+emission_energy_multiplier = 4.0
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_ya3vs"]
+material = SubResource("StandardMaterial3D_ku5nx")
+size = Vector2(0.3, 0.3)
+
+[node name="sky" type="Node3D"]
+script = ExtResource("1_gc8rc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_ku5nx")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya3vs")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_gc8rc")
+draw_pass_1 = SubResource("QuadMesh_ya3vs")

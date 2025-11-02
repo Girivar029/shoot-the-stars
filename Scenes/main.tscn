@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0isw3nk2lhd7"]
+[gd_scene load_steps=7 format=3 uid="uid://b0isw3nk2lhd7"]
 
 [ext_resource type="PackedScene" uid="uid://dotfxej66tt28" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://bjxelp1ssm5gk" path="res://Scenes/event_spawner.gd" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://defxssikge230" path="res://Scenes/sky.tscn" id="3_8gbba"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bo1nx"]
 sky_top_color = Color(0, 0, 0.0627451, 1)
@@ -27,3 +29,7 @@ environment = SubResource("Environment_jjvhh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.53651, 0)
 light_color = Color(0.0034225776, 0.19014966, 0.7958451, 1)
 light_energy = 0.15
+
+[node name="EventSpawner" type="Node3D" parent="."]
+script = ExtResource("2_bo1nx")
+event_scene = ExtResource("3_8gbba")
