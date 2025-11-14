@@ -1,9 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0isw3nk2lhd7"]
+[gd_scene load_steps=10 format=3 uid="uid://b0isw3nk2lhd7"]
 
 [ext_resource type="PackedScene" uid="uid://dotfxej66tt28" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="Shader" uid="uid://ctm2rtigtlt7y" path="res://Scripts/night_sky.gdshader" id="2_bo1nx"]
-[ext_resource type="Shader" uid="uid://cq2rp1861vcny" path="res://Scripts/earth.gdshader" id="3_jjvhh"]
-[ext_resource type="Script" uid="uid://bbxmk7g3ui3wn" path="res://Scripts/earth.gd" id="4_kry3j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjgbg"]
 shader = ExtResource("2_bo1nx")
@@ -26,18 +24,6 @@ glow_strength = 1.2
 glow_bloom = 0.1
 glow_blend_mode = 0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
-render_priority = 0
-shader = ExtResource("3_jjvhh")
-shader_parameter/light_dir = Vector3(0, 0, 0)
-shader_parameter/rotation_speed = 0.1
-shader_parameter/time_passed = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_bo1nx"]
-material = SubResource("ShaderMaterial_21xkr")
-radius = 50.0
-height = 100.0
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8gbba"]
 albedo_color = Color(1, 0.9058309, 0.3491902, 1)
 metallic = 0.1
@@ -54,7 +40,23 @@ height = 200.0
 radial_segments = 96
 rings = 48
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bo1nx"]
+albedo_color = Color(0, 0.9377614, 0.93776107, 1)
+metallic = 0.5
+roughness = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_bo1nx"]
+material = SubResource("StandardMaterial3D_bo1nx")
+radius = 60.0
+height = 120.0
+
 [node name="main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, 0.50000006, -2.1855694e-08, -0.50000006, -0.8660254, 8.156656e-08, 2.1855698e-08, 8.156656e-08, 1, 0, 0, -4.6690674)
+light_color = Color(0.99999887, 0.9936616, 0.71293396, 1)
+light_energy = 3.0
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8gbba")
@@ -64,12 +66,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2529716, 0, -1146.4868)
 
 [node name="CelestialBodies" type="Node3D" parent="."]
 
-[node name="Earth" type="MeshInstance3D" parent="CelestialBodies"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
-mesh = SubResource("SphereMesh_bo1nx")
-script = ExtResource("4_kry3j")
-
 [node name="Sun" type="MeshInstance3D" parent="CelestialBodies"]
 cast_shadow = 0
 gi_mode = 2
 mesh = SubResource("SphereMesh_jjvhh")
+
+[node name="Earth" type="MeshInstance3D" parent="CelestialBodies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
+mesh = SubResource("SphereMesh_bo1nx")
